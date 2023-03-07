@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const CommunityDetail: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>CommunityDetail Page</h1>
-    </div>
+    </Layout>
   );
 };
 

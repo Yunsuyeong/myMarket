@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const Profile: NextPage = () => {
   return (
-    <div>
+    <Layout title="Profile" hasTabBar>
       <h1>Profile Page</h1>
-    </div>
+    </Layout>
   );
 };
 

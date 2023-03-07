@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const ChatsDetail: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>Chats Detail Page</h1>
-    </div>
+    </Layout>
   );
 };
 

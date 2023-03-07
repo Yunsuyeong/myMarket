@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const ItemDetail: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>Item Detail Page</h1>
-    </div>
+    </Layout>
   );
 };
 

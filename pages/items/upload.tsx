@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const Upload: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>Item Upload Page</h1>
-    </div>
+    </Layout>
   );
 };
 

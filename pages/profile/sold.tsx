@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const Sold: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>Sold Page</h1>
-    </div>
+    </Layout>
   );
 };
 

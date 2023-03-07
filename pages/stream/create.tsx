@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const CreateStream: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>Create Stream Page</h1>
-    </div>
+    </Layout>
   );
 };
 

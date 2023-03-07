@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const Liked: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <h1>Liked Page</h1>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,10 +1,11 @@
 import { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const Streams: NextPage = () => {
   return (
-    <div>
+    <Layout title="Stream" hasTabBar>
       <h1>Streams Page</h1>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
-
-function cls(...classnames: string[]) {
-  return classnames.join(" ");
-}
+import { cls } from "@libs/client/utils";
 
 interface IForm {
   email?: string;
