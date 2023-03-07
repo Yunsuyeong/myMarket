@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
+import Button from "../components/button";
+import Input from "@components/input";
 
 interface IForm {
   email?: string;
@@ -10,9 +12,9 @@ interface IForm {
 
 export default function Enter() {
   const [enter, { loading, data, error }] = useMutation("/api/users/enter");
-  const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, reset } = useForm<IForm>();
   const onValid = (data: IForm) => {
+    if (loading) return;
     enter(data);
   };
   console.log(loading, data, error);
@@ -57,59 +59,42 @@ export default function Enter() {
           </div>
         </div>
         <form onSubmit={handleSubmit(onValid)} className="mt-4 flex flex-col">
-          <label className="text-sm font-medium">
-            {method === "email" && "Email address"}
-            {method === "phone" && "Phone number"}
-          </label>
-          <div className="mt-2">
-            {method === "email" ? (
-              <input
-                className="placehoder-gray-200 w-full appearance-none rounded-md border-white px-3
-                py-2 text-black shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
-                type="email"
-                placeholder="Email"
-                required
-                {...register("email", { required: "Email is required." })}
-              />
-            ) : null}
-            {method === "phone" ? (
-              <div className="flex rounded-md shadow-sm">
-                <span
-                  className="bg-grey-200 flex items-center
-                justify-center rounded-l-md border border-r-0 px-4"
-                >
-                  +82
-                </span>
-                <input
-                  className="placehoder-gray-200 w-full appearance-none rounded-md border-white px-3
-                py-2 text-black shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
-                  type="number"
-                  placeholder="Phone number"
-                  required
-                  {...register("phone", {
-                    minLength: {
-                      message:
-                        "Phone number must be at least 9 characters long.",
-                      value: 9,
-                    },
-                  })}
-                />
-              </div>
-            ) : null}
-          </div>
-          <button
-            className={cls(
-              "text-md border-border-transparent rounded-mdpx-4 mt-2 cursor-pointer py-2 font-bold shadow-sm",
-              method === "email"
-                ? "bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                : method === "phone"
-                ? "bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
-                : ""
-            )}
-          >
-            {method === "email" ? "Get login link" : null}
-            {method === "phone" ? "Get one-time password" : null}
-          </button>
+          {method === "email" ? (
+            <Input
+              register={register("email", { required: true })}
+              name="email"
+              label="Email address"
+              type="email"
+              required
+            />
+          ) : null}
+          {method === "phone" ? (
+            <Input
+              register={register("phone", {
+                minLength: {
+                  value: 9,
+                  message: "Least 9 characters",
+                },
+              })}
+              name="phone"
+              label="Phone number"
+              kind="phone"
+              type="number"
+              required
+            />
+          ) : null}
+          {method === "email" ? (
+            <Button
+              method="email"
+              text={loading ? "Loading..." : "Get login link"}
+            />
+          ) : null}
+          {method === "phone" ? (
+            <Button
+              method="phone"
+              text={loading ? "Loading..." : "Get one-time password"}
+            />
+          ) : null}
         </form>
         <div className="mt-4">
           <div className="relative">
