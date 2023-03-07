@@ -1,13 +1,33 @@
 import { useState } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
+import useMutation from "@libs/client/useMutation";
 
 function cls(...classnames: string[]) {
   return classnames.join(" ");
 }
 
+interface IForm {
+  email?: string;
+  phone?: number;
+}
+
 export default function Enter() {
+  const [enter, { loading, data, error }] = useMutation("/api/users/enter");
+  const [submitting, setSubmitting] = useState(false);
+  const { register, handleSubmit, reset } = useForm<IForm>();
+  const onValid = (data: IForm) => {
+    enter(data);
+  };
+  console.log(loading, data, error);
   const [method, setMethod] = useState<"email" | "phone">("email");
-  const onEmailClick = () => setMethod("email");
-  const onPhoneClick = () => setMethod("phone");
+  const onEmailClick = () => {
+    reset();
+    setMethod("email");
+  };
+  const onPhoneClick = () => {
+    reset();
+    setMethod("phone");
+  };
   return (
     <div className="mt-8 px-4">
       <h1 className="text-center text-4xl font-bold">Enter to my market</h1>
@@ -39,7 +59,7 @@ export default function Enter() {
             </button>
           </div>
         </div>
-        <form className="mt-4 flex flex-col">
+        <form onSubmit={handleSubmit(onValid)} className="mt-4 flex flex-col">
           <label className="text-sm font-medium">
             {method === "email" && "Email address"}
             {method === "phone" && "Phone number"}
@@ -50,7 +70,9 @@ export default function Enter() {
                 className="placehoder-gray-200 w-full appearance-none rounded-md border-white px-3
                 py-2 text-black shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
                 type="email"
+                placeholder="Email"
                 required
+                {...register("email", { required: "Email is required." })}
               />
             ) : null}
             {method === "phone" ? (
@@ -65,7 +87,15 @@ export default function Enter() {
                   className="placehoder-gray-200 w-full appearance-none rounded-md border-white px-3
                 py-2 text-black shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
                   type="number"
+                  placeholder="Phone number"
                   required
+                  {...register("phone", {
+                    minLength: {
+                      message:
+                        "Phone number must be at least 9 characters long.",
+                      value: 9,
+                    },
+                  })}
                 />
               </div>
             ) : null}
