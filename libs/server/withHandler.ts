@@ -1,5 +1,9 @@
-import { NextApiHandler, NextApiRequest } from "next";
-import { NextApiResponse } from "next";
+import { NextApiHandler } from "next";
+
+export interface IResponse {
+  ok: boolean;
+  [key: string]: any;
+}
 
 export default function withHandler(
   method: "GET" | "POST" | "DELETE",
