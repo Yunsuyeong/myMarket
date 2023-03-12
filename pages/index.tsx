@@ -5,33 +5,33 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
 
-interface IProductsResponse {
+interface IItemssResponse {
   ok: boolean;
-  products: Product[];
+  items: Product[];
 }
 
 const Home: NextPage = () => {
   const { user, isLoading } = useUser();
-  const { data } = useSWR<IProductsResponse>("/api/items");
+  const { data } = useSWR<IItemssResponse>("/api/items");
   console.log(data);
   const router = useRouter();
   return (
     <Layout title="Home" hasTabBar>
       <div className="flex flex-col space-y-5 px-2 py-4">
-        {data?.products?.map((product) => (
+        {data?.items?.map((item) => (
           <div
-            key={product.id}
-            onClick={() => router.push(`/items/${product.id}`)}
+            key={item.id}
+            onClick={() => router.push(`/items/${item.id}`)}
             className="flex cursor-pointer justify-between border-b pb-4"
           >
             <div className="flex space-x-2">
               <div className="h-16 w-16 rounded-sm bg-white shadow-sm" />
               <div className="flex flex-col pl-2">
-                <h3 className="text-md font-semibold">{product.name}</h3>
+                <h3 className="text-md font-semibold">{item.name}</h3>
                 <span className="text-sm font-medium">Color</span>
                 <span className="text-sm font-medium text-gray-300">
                   {" "}
-                  $ {product.price}
+                  $ {item.price}
                 </span>
               </div>
             </div>

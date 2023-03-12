@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     session: { user },
   } = req;
   if (req.method === "POST") {
-    const product = await client.product.create({
+    const item = await client.product.create({
       data: {
         description,
         name,
@@ -22,11 +22,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       },
     });
-    res.json({ ok: true, product });
+    res.json({ ok: true, item });
   }
   if (req.method === "GET") {
-    const products = await client.product.findMany({});
-    res.json({ ok: true, products });
+    const items = await client.product.findMany({});
+    res.json({ ok: true, items });
   }
 }
 

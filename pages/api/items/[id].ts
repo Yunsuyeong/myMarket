@@ -5,7 +5,7 @@ import { withApiSession } from "../../../libs/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const product = await client.product.findUnique({
+  const item = await client.product.findUnique({
     where: {
       id: +id!.toString(),
     },
@@ -19,7 +19,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     },
   });
-  res.json({ ok: true, product });
+  const terms = item?.name.split(" ").map((word) => ({
+    name: {
+      contains: word,
+    },
+  }));
+  const relatedItem = await client.product.findMany({
+    where: {
+      OR: terms,
+      AND: {
+        id: {
+          not: item?.id,
+        },
+      },
+    },
+  });
+  res.json({ ok: true, item, relatedItem });
 }
 
 export default withApiSession(

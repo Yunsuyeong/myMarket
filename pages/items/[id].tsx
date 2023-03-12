@@ -3,16 +3,21 @@ import Layout from "../../components/layout";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
-import { Product } from "@prisma/client";
+import { Product, User } from "@prisma/client";
 
-interface IProductResponse {
+interface ItemWithUser extends Product {
+  user: User;
+}
+
+interface IItemResponse {
   ok: boolean;
-  product: Product;
+  item: ItemWithUser;
+  relatedItem: Product[];
 }
 
 const ItemDetail: NextPage = () => {
   const router = useRouter();
-  const { data } = useSWR<IProductResponse>(
+  const { data } = useSWR<IItemResponse>(
     router.query.id && `/api/items/${router.query.id}`
   );
   console.log(data);
@@ -24,12 +29,10 @@ const ItemDetail: NextPage = () => {
           <div className="flex items-center space-x-4 border-t border-b py-2">
             <div className="h-16 w-16 rounded-full bg-gray-400" />
             <div>
-              <p className="text-md font-semibold">
-                {data?.product?.user?.name}
-              </p>
+              <p className="text-md font-semibold">{data?.item?.user?.name}</p>
               <Link
                 legacyBehavior
-                href={`/users/profiles/${data?.product?.user?.id}`}
+                href={`/users/profiles/${data?.item?.user?.id}`}
               >
                 <a className="text-sm font-medium">view profile &rarr;</a>
               </Link>
@@ -38,16 +41,16 @@ const ItemDetail: NextPage = () => {
         </div>
         <div className="mt-8">
           <h1 className="text-2xl font-bold">
-            {data ? data?.product?.name : "Loading..."}
+            {data ? data?.item?.name : "Loading..."}
           </h1>
           <p className="text-sm font-medium text-gray-300">
-            ${data ? data?.product?.price : "Loading..."}
+            ${data ? data?.item?.price : "Loading..."}
           </p>
           <p className="my-2 text-sm font-medium">
-            {data ? data?.product?.description : "Loading..."}
+            {data ? data?.item?.description : "Loading..."}
           </p>
           <p className="my-2 text-sm font-normal">
-            {data ? (data?.product?.created as any) : "Loading..."}
+            {data ? (data?.item?.created as any) : "Loading..."}
           </p>
           <div className="flex items-center justify-between space-x-2">
             <button
@@ -77,11 +80,13 @@ const ItemDetail: NextPage = () => {
         <div>
           <h2 className="py-4 text-2xl font-semibold">similar</h2>
           <div className="grid grid-cols-2 gap-4">
-            {[...Array(10)].map((_, i) => (
-              <div key={i}>
+            {data?.relatedItem?.map((item) => (
+              <div key={item.id}>
                 <div className="mb-2 h-48 w-full bg-white" />
-                <h3 className="text-md font-medium">product</h3>
-                <p className="text-sm font-medium text-gray-300">$price</p>
+                <h3 className="text-md font-medium">{item.name}</h3>
+                <p className="text-sm font-medium text-gray-300">
+                  ${item.price}
+                </p>
               </div>
             ))}
           </div>

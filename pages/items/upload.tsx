@@ -10,7 +10,7 @@ import Router, { useRouter } from "next/router";
 import { Product } from "@prisma/client";
 import TextArea from "@components/textarea";
 
-interface IProductForm {
+interface IItemForm {
   name: string;
   price: number;
   description: string;
@@ -23,10 +23,10 @@ interface UploadMutationResult {
 
 const Upload: NextPage = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<IProductForm>();
+  const { register, handleSubmit } = useForm<IItemForm>();
   const [upload, { loading, data }] =
     useMutation<UploadMutationResult>("/api/items");
-  const onValid = (form: IProductForm) => {
+  const onValid = (form: IItemForm) => {
     if (loading) return;
     upload(form);
   };
