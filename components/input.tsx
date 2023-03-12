@@ -30,7 +30,6 @@ const Input = ({
             required={required}
             {...register}
             type={type}
-            placeholder="Email"
             className="placehoder-gray-200 w-full appearance-none rounded-md border-white px-3 py-2 text-black shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500"
           />
         </div>
@@ -52,6 +51,23 @@ const Input = ({
             className="placehoder-gray-200 w-full appearance-none rounded-md border-white px-3
                 py-2 text-black shadow-sm focus:border-yellow-500 focus:outline-none focus:ring-yellow-500"
           />
+        </div>
+      )}
+      {kind === "price" && (
+        <div className="relative flex items-center rounded-md shadow-sm">
+          <div className="pointer-events-none absolute left-0 flex items-center justify-center pl-3">
+            <span className="text-sm text-gray-500">$</span>
+          </div>
+          <input
+            id={name}
+            required={required}
+            {...register}
+            type={type}
+            className="w-full appearance-none px-2 py-2 pl-6 text-black"
+          />
+          <div className="pointer-events-none absolute right-0 flex items-center pr-3">
+            <span className="text-black">USD</span>
+          </div>
         </div>
       )}
     </div>
