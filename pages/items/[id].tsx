@@ -62,7 +62,7 @@ const ItemDetail: NextPage = () => {
             {data ? data?.item?.description : "Loading..."}
           </p>
           <p className="my-2 text-sm font-normal">
-            {data ? (data?.item?.created as any) : "Loading..."}
+            {data ? String(data?.item?.created) : "Loading..."}
           </p>
           <div className="flex items-center justify-between space-x-2">
             <button

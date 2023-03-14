@@ -1,14 +1,34 @@
 import { NextPage } from "next";
 import Layout from "../../components/layout";
 import { useRouter } from "next/router";
+import useSWR from "swr";
+import { Post, User } from "@prisma/client";
+
+interface PostsWithUser extends Post {
+  user: User;
+  _count: {
+    wonders: number;
+    answers: number;
+  };
+}
+
+interface IPostsREsponse {
+  ok: boolean;
+  posts: PostsWithUser[];
+}
 
 const Community: NextPage = () => {
   const router = useRouter();
+  const { data } = useSWR<IPostsREsponse>(`/api/posts`);
   return (
     <Layout title="Community" hasTabBar>
-      <div className="space-y-6 px-4 py-12">
-        {[1, 2, 3, 4, 5].map((_, i) => (
-          <div key={i} className="flex flex-col items-start">
+      <div className="cursor-pointer space-y-6 px-4 py-12">
+        {data?.posts.map((post) => (
+          <div
+            onClick={() => router.push(`/community/${post.id}`)}
+            key={post.id}
+            className="flex flex-col items-start"
+          >
             <h4
               className="text-md flex items-center rounded-full bg-white
           px-2 py-1 font-semibold text-black"
@@ -16,12 +36,12 @@ const Community: NextPage = () => {
               Question
             </h4>
             <div className="mt-3">
-              <span className="text-lg font-bold text-yellow-500">Q. </span>What
-              is the best restraunt?
+              <span className="text-lg font-bold text-yellow-500">Q. </span>
+              {post.question}
             </div>
             <div className="mt-3 flex w-full items-center justify-between text-sm font-normal">
-              <span>name</span>
-              <span>Yesterday</span>
+              <span>{post.user.name}</span>
+              <span>{String(post.created)}</span>
             </div>
             <div className="mt-3 flex w-full space-x-3 border-t-[0.5px] border-b py-3">
               <span className="flex items-center space-x-2">
@@ -39,7 +59,7 @@ const Community: NextPage = () => {
                     d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <p>Interesting 1</p>
+                <p>Interesting {post._count.wonders}</p>
               </span>
               <span className="flex items-center space-x-2">
                 <svg
@@ -56,7 +76,7 @@ const Community: NextPage = () => {
                     d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
                   />
                 </svg>
-                <span>Answer 1</span>
+                <span>Answer {post._count.answers}</span>
               </span>
             </div>
           </div>

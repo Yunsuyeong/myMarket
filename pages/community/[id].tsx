@@ -2,9 +2,14 @@ import Button from "@components/button";
 import { NextPage } from "next";
 import Layout from "../../components/layout";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { Answer, Post, User } from "@prisma/client";
 import Link from "next/link";
+import useMutation from "@libs/client/useMutation";
+import { cls } from "@libs/client/utils";
+import TextArea from "@components/textarea";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 interface AnswerwithUser extends Answer {
   user: User;
@@ -22,14 +27,61 @@ interface PostWithUser extends Post {
 interface IPostResponse {
   ok: boolean;
   post: PostWithUser;
+  isWondering: boolean;
+}
+
+interface IAnswerForm {
+  answer: string;
+}
+
+interface IAnswerResponse {
+  ok: boolean;
+  answer: Answer;
 }
 
 const CommunityDetail: NextPage = () => {
   const router = useRouter();
-  const { data } = useSWR<IPostResponse>(
+  const { register, handleSubmit, reset } = useForm<IAnswerForm>();
+  const { data, mutate: boundMutate } = useSWR<IPostResponse>(
     router.query.id && `/api/posts/${router.query.id}`
   );
-  console.log(data);
+  const [wonder, { loading }] = useMutation(
+    `/api/posts/${router.query.id}/wonder`
+  );
+  const onWonderClick = () => {
+    if (!data) return;
+    boundMutate(
+      {
+        ...data,
+        post: {
+          ...data.post,
+          _count: {
+            ...data.post._count,
+            wonders: data.isWondering
+              ? data?.post._count.wonders - 1
+              : data?.post._count.wonders + 1,
+          },
+        },
+        isWondering: !data.isWondering,
+      },
+      false
+    );
+    if (!loading) {
+      wonder({});
+    }
+  };
+  const [answer, { data: answerData, loading: answerLoading }] =
+    useMutation<IAnswerResponse>(`/api/posts/${router.query.id}/answers`);
+  const onValid = (form: IAnswerForm) => {
+    if (answerLoading) return;
+    answer(form);
+  };
+  useEffect(() => {
+    if (answerData && answerData.ok) {
+      reset();
+      boundMutate();
+    }
+  }, [answerData, reset, boundMutate]);
   return (
     <Layout canGoBack>
       <div>
@@ -57,7 +109,13 @@ const CommunityDetail: NextPage = () => {
             {data?.post?.question}
           </div>
           <div className="mt-3 flex w-full space-x-3 border-t-[0.5px] border-b py-3">
-            <span className="flex items-center space-x-2">
+            <button
+              onClick={onWonderClick}
+              className={cls(
+                "flex items-center space-x-2",
+                data?.isWondering ? "text-teal-500" : ""
+              )}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -73,7 +131,7 @@ const CommunityDetail: NextPage = () => {
                 />
               </svg>
               <p>Interesting {data?.post?._count?.wonders}</p>
-            </span>
+            </button>
             <span className="flex items-center space-x-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +159,7 @@ const CommunityDetail: NextPage = () => {
                     {answer.user.name}
                   </span>
                   <span className="block text-sm font-normal text-gray-300">
-                    {answer.created as any}
+                    {String(answer.created)}
                   </span>
                   <span className="block">{answer.answer}</span>
                 </div>
@@ -109,10 +167,18 @@ const CommunityDetail: NextPage = () => {
             ))}
           </div>
         </div>
-        <div className="px-2">
-          <textarea className="mt-1 w-full rounded-md border-gray-300 text-black shadow-sm focus:border-orange-500 focus:ring-orange-500 " />
-          <Button text="Reply" method="upload" />
-        </div>
+        <form onSubmit={handleSubmit(onValid)} className="px-2">
+          <TextArea
+            name="description"
+            register={register("answer", { required: true })}
+            required
+            placeholder="Answer this question!"
+          />
+          <Button
+            text={answerLoading ? "Loading..." : "Reply"}
+            method="upload"
+          />
+        </form>
       </div>
     </Layout>
   );
