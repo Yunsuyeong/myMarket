@@ -81,7 +81,8 @@ const Home: NextPage = () => {
         ))}
         <button
           onClick={() => router.push("/items/upload")}
-          className="fixed bottom-24 right-10 rounded-full bg-green-300 shadow-sm hover:bg-green-500"
+          className="fixed bottom-24 right-5 cursor-pointer
+          rounded-full bg-green-300 p-4 text-black shadow-xl transition-colors hover:bg-green-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
