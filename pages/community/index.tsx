@@ -3,6 +3,7 @@ import Layout from "../../components/layout";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Post, User } from "@prisma/client";
+import useCoords from "@libs/client/useCoords";
 
 interface PostsWithUser extends Post {
   user: User;
@@ -18,12 +19,18 @@ interface IPostsREsponse {
 }
 
 const Community: NextPage = () => {
+  const { latitude, longitude } = useCoords();
   const router = useRouter();
-  const { data } = useSWR<IPostsREsponse>(`/api/posts`);
+  const { data } = useSWR<IPostsREsponse>(
+    latitude && longitude
+      ? `/api/posts?latitude=${latitude}&longitude=${longitude}`
+      : null
+  );
+  console.log(latitude, longitude);
   return (
     <Layout title="Community" hasTabBar>
       <div className="cursor-pointer space-y-6 px-4 py-12">
-        {data?.posts.map((post) => (
+        {data?.posts?.map((post) => (
           <div
             onClick={() => router.push(`/community/${post.id}`)}
             key={post.id}
