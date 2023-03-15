@@ -5,7 +5,7 @@ interface IInput {
   name: string;
   type: string;
   required: boolean;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   kind?: "email" | "phone" | "price";
   [key: string]: any;
 }
