@@ -26,6 +26,11 @@ model User {
   posts Post[]
   answers Answer[]
   wonders Wonder[]
+  writtenReviews Review[] @relation(name:"writtenReviews")
+  receivedReviews Review[] @relation(name:"receivedReviews")
+  sales Sale[]
+  buys Buy[]
+  // record Record[]
 }
 
 model Token {
@@ -48,6 +53,8 @@ model Product {
   created DateTime @default(now())
   updated DateTime @updatedAt
   favorites Favorite[]
+  sales Sale[]
+  buys Buy[]
 }
 
 model Favorite {
@@ -93,3 +100,52 @@ model Wonder {
   created DateTime @default(now())
   updated DateTime @updatedAt
 }
+
+model Review {
+  id Int @id @default(autoincrement())
+  review String @db.MediumText
+  score Int @default(1)
+  createdBy User @relation(name:"writtenReviews",fields: [createdById], references: [id], onDelete: Cascade)
+  createdById Int
+  createdFor User @relation(name:"receivedReviews",fields: [createdForId], references: [id], onDelete: Cascade)
+  createdForId Int
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model Sale {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model Buy {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+// model Record {
+//   kind Kind
+//   id Int @id @default(autoincrement())
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   userId Int
+//   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+//   productId Int
+//   created DateTime @default(now())
+//   updated DateTime @updatedAt
+// }
+
+// enum Kind {
+//   Favorite
+//   Sale
+//   Buy
+// }

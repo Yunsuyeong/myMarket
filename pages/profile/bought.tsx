@@ -1,23 +1,35 @@
+import { Buy, Product } from "@prisma/client";
 import { NextPage } from "next";
 import Layout from "../../components/layout";
+import useSWR from "swr";
+
+interface BuysWithProduct extends Buy {
+  product: Product;
+}
+
+interface IBuysResponse {
+  ok: boolean;
+  buys: BuysWithProduct[];
+}
 
 const Bought: NextPage = () => {
+  const { data } = useSWR<IBuysResponse>("/api/users/prof/buys");
   return (
     <Layout canGoBack>
       <div className="flex flex-col space-y-5 px-2 py-4">
-        {[1, 2, 3, 4, 5].map((i) => (
+        {data?.buys.map((buy) => (
           <div
-            key={i}
+            key={buy.id}
             className="flex cursor-pointer justify-between border-b pb-4"
           >
             <div className="flex space-x-2">
               <div className="h-16 w-16 rounded-sm bg-white shadow-sm" />
               <div className="flex flex-col pl-2">
-                <h3 className="text-md font-semibold">name1</h3>
-                <span className="text-sm font-medium">Color</span>
+                <h3 className="text-md font-semibold">{buy.product.image}</h3>
+                <span className="text-sm font-medium">white</span>
                 <span className="text-sm font-medium text-gray-300">
                   {" "}
-                  $ 1234
+                  $ {buy.product.price}
                 </span>
               </div>
             </div>
