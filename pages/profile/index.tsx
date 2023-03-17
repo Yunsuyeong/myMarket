@@ -4,6 +4,7 @@ import Layout from "../../components/layout";
 import useSWR from "swr";
 import { Review, User } from "@prisma/client";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface ReviewWithUser extends Review {
   createdBy: User;
@@ -15,9 +16,9 @@ interface IReviewsResponse {
 }
 
 const Profile: NextPage = () => {
+  const router = useRouter();
   const { user, isLoading } = useUser();
   const { data } = useSWR<IReviewsResponse>("/api/reviews");
-  console.log(user);
   return (
     <Layout title="Profile" hasTabBar>
       <div className="px-2 py-8">
@@ -27,7 +28,12 @@ const Profile: NextPage = () => {
             <span className="text-md font-medium">
               {isLoading ? "Loading..." : user?.name}
             </span>
-            <span className="cursor-pointer text-sm">Edit profile &rarr;</span>
+            <span
+              onClick={() => router.push("/profile/edit")}
+              className="cursor-pointer text-sm"
+            >
+              Edit profile &rarr;
+            </span>
           </div>
         </div>
         <div className="mt-4 flex justify-around">

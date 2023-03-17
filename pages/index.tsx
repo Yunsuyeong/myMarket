@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
 
-interface ItemWithCount extends Product {
+export interface ItemWithCount extends Product {
   _count: {
     favorites: number;
   };

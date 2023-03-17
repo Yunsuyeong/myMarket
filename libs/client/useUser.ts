@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { User } from "@prisma/client";
+
+interface IProfResponse {
+  ok: boolean;
+  profile: User;
+}
 
 export default function useUser() {
-  const { data, error } = useSWR("/api/users/prof");
+  const { data, error } = useSWR<IProfResponse>("/api/users/prof");
   const router = useRouter();
   useEffect(() => {
     if (data && !data.ok) {

@@ -12,7 +12,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
       userId: user?.id,
     },
     include: {
-      product: true,
+      product: {
+        include: {
+          _count: {
+            select: {
+              favorites: true,
+            },
+          },
+        },
+      },
     },
   });
   res.json({
