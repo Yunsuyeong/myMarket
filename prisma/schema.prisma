@@ -30,6 +30,8 @@ model User {
   receivedReviews Review[] @relation(name:"receivedReviews")
   sales Sale[]
   buys Buy[]
+  lives Live[]
+  messages Message[]
   // record Record[]
 }
 
@@ -129,6 +131,29 @@ model Buy {
   userId Int
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model Live {
+  id Int @id @default(autoincrement())
+  name String
+  price Int
+  description String @db.MediumText
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+  messages Message[]
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+  message String @db.MediumText
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  live Live @relation(fields: [liveId], references: [id], onDelete: Cascade)
+  liveId Int
   created DateTime @default(now())
   updated DateTime @updatedAt
 }
