@@ -43,7 +43,7 @@ const CommunityDetail: NextPage = () => {
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm<IAnswerForm>();
   const { data, mutate: boundMutate } = useSWR<IPostResponse>(
-    router.query.id && `/api/posts/${router.query.id}`
+    router.query.id && `/api/posts/${router.query.id}?page=1`
   );
   const [wonder, { loading }] = useMutation(
     `/api/posts/${router.query.id}/wonder`

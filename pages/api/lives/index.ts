@@ -9,7 +9,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
     body: { name, price, description },
   } = req;
   if (req.method === "GET") {
-    const lives = await client.live.findMany({});
+    const lives = await client.live.findMany({
+      take: 5,
+      skip: 0,
+    });
     res.json({ ok: true, lives });
   }
   if (req.method === "POST") {

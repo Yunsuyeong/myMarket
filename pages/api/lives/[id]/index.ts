@@ -11,6 +11,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     where: {
       id: +id!.toString(),
     },
+    include: {
+      messages: {
+        select: {
+          id: true,
+          message: true,
+          user: {
+            select: {
+              avatar: true,
+              id: true,
+            },
+          },
+        },
+        take: 5,
+        skip: 0,
+      },
+    },
   });
   res.json({ ok: true, live });
 }
