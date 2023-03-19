@@ -4,7 +4,7 @@ import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Layout from "../../components/layout";
 
@@ -12,6 +12,7 @@ interface IEditForm {
   name?: string;
   email?: string;
   phone?: number;
+  avatar?: FileList;
   formErrors?: string;
 }
 
@@ -28,6 +29,7 @@ const EditProfile: NextPage = () => {
     handleSubmit,
     setValue,
     setError,
+    watch,
     formState: { errors },
   } = useForm<IEditForm>();
   useEffect(() => {
@@ -37,7 +39,8 @@ const EditProfile: NextPage = () => {
   }, [user, setValue]);
   const [edit, { loading, data }] =
     useMutation<IEditResponse>(`/api/users/prof`);
-  const onValid = ({ name, email, phone }: IEditForm) => {
+  const onValid = ({ name, email, phone, avatar }: IEditForm) => {
+    return;
     if (loading) return;
     if (name === "" && email === "" && phone === +"") {
       return setError("formErrors", { message: "Email or Phone are required" });
@@ -49,6 +52,14 @@ const EditProfile: NextPage = () => {
       setError("formErrors", { message: data.error });
     }
   }, [data, setError]);
+  const [preview, setPreview] = useState("");
+  const avatar = watch("avatar");
+  useEffect(() => {
+    if (avatar && avatar.length > 0) {
+      const file = avatar[0];
+      setPreview(URL.createObjectURL(file));
+    }
+  }, [avatar]);
   useEffect(() => {
     if (data?.ok) {
       router.push("/profile");
@@ -58,7 +69,11 @@ const EditProfile: NextPage = () => {
     <Layout canGoBack>
       <form onSubmit={handleSubmit(onValid)} className="space-y-2 px-2 py-8">
         <div className="flex items-center space-x-2">
-          <div className="h-12 w-12 rounded-full bg-slate-300" />
+          {preview ? (
+            <img src={preview} className="h-12 w-12 rounded-full" />
+          ) : (
+            <div className="h-12 w-12 rounded-full bg-slate-300" />
+          )}
           <label
             htmlFor="picture"
             className="cursor-pointer rounded-md border border-gray-500 py-2
@@ -67,6 +82,7 @@ const EditProfile: NextPage = () => {
           >
             Change
             <input
+              {...register("avatar")}
               id="picture"
               type="file"
               className="hidden"

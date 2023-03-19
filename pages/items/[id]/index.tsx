@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import Layout from "../../components/layout";
+import Layout from "../../../components/layout";
 import { useRouter } from "next/router";
 import useSWR, { useSWRConfig } from "swr";
 import Link from "next/link";
@@ -42,10 +42,7 @@ const ItemDetail: NextPage = () => {
             <div className="h-16 w-16 rounded-full bg-gray-400" />
             <div>
               <p className="text-md font-semibold">{data?.item?.user?.name}</p>
-              <Link
-                legacyBehavior
-                href={`/users/profiles/${data?.item?.user?.id}`}
-              >
+              <Link legacyBehavior href={`/profiles/${data?.item?.user?.id}`}>
                 <a className="text-sm font-medium">view profile &rarr;</a>
               </Link>
             </div>
@@ -62,8 +59,18 @@ const ItemDetail: NextPage = () => {
             {data ? data?.item?.description : "Loading..."}
           </p>
           <p className="my-2 text-sm font-normal">
-            {data ? String(data?.item?.created) : "Loading..."}
+            Created : {data ? String(data?.item?.created) : "Loading..."}
           </p>
+          <p className="my-2 text-sm font-normal">
+            Updated : {data ? String(data?.item?.created) : "Loading..."}
+          </p>
+          <button
+            onClick={() => router.push(`/items/${router.query.id}/edit`)}
+            className="mb-2 w-full flex-1 rounded-md bg-yellow-300 py-2
+            font-semibold shadow-sm hover:bg-yellow-500 focus:ring-2 focus:ring-offset-2"
+          >
+            Edit this Item
+          </button>
           <div className="flex items-center justify-between space-x-2">
             <button
               className="flex-1 rounded-md bg-green-300 py-2 font-semibold
