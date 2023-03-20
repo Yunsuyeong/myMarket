@@ -18,7 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
   if (req.method === "POST") {
     const {
       session: { user },
-      body: { name, email, phone },
+      body: { name, email, phone, avatarId },
     } = req;
     const current = await client.user.findUnique({
       where: {
@@ -86,6 +86,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
       });
       res.json({ ok: true });
     } else res.json({ ok: true });
+    if (avatarId) {
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          avatar: avatarId,
+        },
+      });
+    }
   }
 }
 

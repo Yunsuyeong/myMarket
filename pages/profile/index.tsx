@@ -23,7 +23,16 @@ const Profile: NextPage = () => {
     <Layout title="Profile" hasTabBar>
       <div className="px-2 py-8">
         <div className="flex items-center space-x-2">
-          <div className="h-12 w-12 rounded-full bg-slate-300" />
+          {user?.avatar ? (
+            <img
+              src={`https://imagedelivery.net/aSbksvJjax-AUC7qVnaC4A/
+          ${user?.avatar}/avatar`}
+              className="h-12 w-12 rounded-full"
+            />
+          ) : (
+            <div className="h-12 w-12 rounded-full bg-slate-300" />
+          )}
+
           <div className="flex flex-col">
             <span className="text-md font-medium">
               {isLoading ? "Loading..." : user?.name}
