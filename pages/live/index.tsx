@@ -5,6 +5,7 @@ import { Live } from "@prisma/client";
 import useSWR from "swr";
 import Link from "next/link";
 import Head from "next/head";
+import Image from "next/image";
 
 interface ILivesResponse {
   ok: boolean;
@@ -23,7 +24,18 @@ const Lives: NextPage = () => {
         {data?.lives.map((live) => (
           <Link legacyBehavior key={live.id} href={`/live/${live.id}`}>
             <a className="block px-4 pt-4">
-              <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
+              {live.cloudflareId ? (
+                <div className="relative aspect-video w-full rounded-md shadow-sm">
+                  <Image
+                    layout="fill"
+                    alt=""
+                    src={`https://videodelivery.net/${live.cloudflareId}/
+              thumbnails/thumbnail.jpg?height=320`}
+                  />
+                </div>
+              ) : (
+                <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
+              )}
               <h3 className="mt-2 text-lg font-semibold">{live.name}</h3>
             </a>
           </Link>

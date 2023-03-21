@@ -76,13 +76,35 @@ const LiveDetail: NextPage = () => {
         <title>LIVE | {data?.live?.name}</title>
       </Head>
       <div className="space-x-2 px-2 py-8">
-        <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
+        <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm">
+          {data?.live?.cloudflareId ? (
+            <iframe
+              src={`https://iframe.videodelivery.net/${data?.live?.cloudflareId}`}
+              className="aspect-video w-full rounded-md shadow-sm"
+              height="720"
+              width="1280"
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-ficture;"
+              allowFullScreen={true}
+            ></iframe>
+          ) : null}
+        </div>
         <div>
           <h3 className="mt-2 text-center text-2xl font-bold">
             {data?.live?.name}
           </h3>
           <span className="mt-2 block text-xl">{data?.live?.price}</span>
           <p className="mt-4 text-lg">{data?.live?.description}</p>
+          <div className="flex flex-col rounded-lg bg-yellow-300 p-4 text-black">
+            <span>Stream keys (Secret)</span>
+            <span>
+              <span>URL</span>:{" "}
+              {data?.live?.cloudflareUrl ? data.live.cloudflareUrl : "xxxxx"}
+            </span>
+            <span>
+              <span>Key</span>:{" "}
+              {data?.live.cloudflareKey ? data.live.cloudflareKey : "xxxxx"}
+            </span>
+          </div>
         </div>
         <div>
           <h3 className="text-xl font-bold">Live Chat</h3>

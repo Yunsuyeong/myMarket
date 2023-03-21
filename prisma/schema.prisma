@@ -145,6 +145,9 @@ model Live {
   created DateTime @default(now())
   updated DateTime @updatedAt
   messages Message[]
+  cloudflareId String @default("")
+  cloudflareUrl String @default("")
+  cloudflareKey String  @default("")
 }
 
 model Message {
