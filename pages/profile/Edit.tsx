@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Layout from "../../components/layout";
+import Image from "next/image";
 
 interface IEditForm {
   name?: string;
@@ -97,7 +98,14 @@ const EditProfile: NextPage = () => {
       <form onSubmit={handleSubmit(onValid)} className="space-y-2 px-2 py-8">
         <div className="flex items-center space-x-2">
           {preview ? (
-            <img src={preview} className="h-12 w-12 rounded-full" />
+            <Image
+              src={preview}
+              width={96}
+              height={96}
+              alt=""
+              quality={100}
+              className="h-24 w-24 rounded-full"
+            />
           ) : (
             <div className="h-12 w-12 rounded-full bg-slate-300" />
           )}

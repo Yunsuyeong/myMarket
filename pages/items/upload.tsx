@@ -10,6 +10,7 @@ import Router, { useRouter } from "next/router";
 import { Product } from "@prisma/client";
 import TextArea from "@components/textarea";
 import Head from "next/head";
+import Image from "next/image";
 
 interface IItemForm {
   image: FileList;
@@ -70,7 +71,13 @@ const Upload: NextPage = () => {
         <form className="px-4 py-8" onSubmit={handleSubmit(onValid)}>
           <div>
             {preview ? (
-              <img src={preview} className="mb-4 h-48 w-full rounded-md py-4" />
+              <Image
+                src={preview}
+                height={192}
+                alt=""
+                quality={100}
+                className="mb-4 h-48 w-full rounded-md py-4"
+              />
             ) : (
               <label className="mb-4 flex aspect-video w-full cursor-pointer items-center justify-center rounded-md border-2 border-dashed py-4 hover:text-gray-300">
                 <svg

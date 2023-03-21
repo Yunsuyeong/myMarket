@@ -8,6 +8,7 @@ import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import useUser from "@libs/client/useUser";
 import Head from "next/head";
+import Image from "next/image";
 
 interface ItemWithUser extends Product {
   user: User;
@@ -42,20 +43,28 @@ const ItemDetail: NextPage = () => {
       <div className="px-4 py-8">
         <div className="mb-4">
           {data?.item?.image ? (
-            <img
+            <Image
               src={`https://imagedelivery.net/aSbksvJjax-AUC7qVnaC4A/
           ${data?.item?.image}/image`}
-              className="h-96"
+              width="384"
+              height="384"
+              quality={100}
+              alt=""
+              className="h-96 w-96"
             />
           ) : (
             <div className="h-96 w-96 bg-white" />
           )}
           <div className="flex items-center space-x-4 border-t border-b py-2">
             {data?.item?.user?.avatar ? (
-              <img
+              <Image
                 src={`https://imagedelivery.net/aSbksvJjax-AUC7qVnaC4A/
           ${data?.item?.user?.avatar}/avatar`}
-                className="h-16 w-16 rounded-full"
+                className="rounded-full"
+                width={64}
+                height={64}
+                quality={100}
+                alt=""
               />
             ) : (
               <div className="h-16 w-16 rounded-full bg-gray-400" />
@@ -82,7 +91,7 @@ const ItemDetail: NextPage = () => {
             Created : {data ? String(data?.item?.created) : "Loading..."}
           </p>
           <p className="my-2 text-sm font-normal">
-            Updated : {data ? String(data?.item?.created) : "Loading..."}
+            Updated : {data ? String(data?.item?.updated) : "Loading..."}
           </p>
           <button
             onClick={() => router.push(`/items/${router.query.id}/edit`)}

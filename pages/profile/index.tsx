@@ -6,6 +6,7 @@ import { Review, User } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
 
 interface ReviewWithUser extends Review {
   createdBy: User;
@@ -28,13 +29,17 @@ const Profile: NextPage = () => {
       <div className="px-2 py-8">
         <div className="flex items-center space-x-2">
           {user?.avatar ? (
-            <img
+            <Image
               src={`https://imagedelivery.net/aSbksvJjax-AUC7qVnaC4A/
           ${user?.avatar}/avatar`}
-              className="h-12 w-12 rounded-full"
+              width={64}
+              height={64}
+              alt=""
+              quality={100}
+              className="h-16 w-16 rounded-full"
             />
           ) : (
-            <div className="h-12 w-12 rounded-full bg-slate-300" />
+            <div className="h-16 w-16 rounded-full bg-slate-300" />
           )}
 
           <div className="flex flex-col">

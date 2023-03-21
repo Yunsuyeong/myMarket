@@ -7,6 +7,7 @@ import useUser from "@libs/client/useUser";
 import { Product, User } from "@prisma/client";
 import { NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -46,7 +47,6 @@ const EditItem: NextPage = () => {
     `/api/items/${router.query.id}`
   );
   const onValid = ({ image, name, price, description }: IEditItemForm) => {
-    return;
     if (loading) return;
     edititem({ name, price, description });
   };
@@ -71,7 +71,14 @@ const EditItem: NextPage = () => {
       <form onSubmit={handleSubmit(onValid)} className="space-y-2 px-2 py-8">
         <div className="flex flex-col items-center justify-center gap-4">
           {preview ? (
-            <img src={preview} className="h-36 w-36 rounded-md" />
+            <Image
+              src={preview}
+              width={144}
+              height={144}
+              quality={100}
+              alt=""
+              className="h-36 w-36 rounded-md"
+            />
           ) : (
             <div className="h-36 w-36 rounded-md bg-slate-300" />
           )}
