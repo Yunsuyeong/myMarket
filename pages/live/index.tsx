@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Live } from "@prisma/client";
 import useSWR from "swr";
 import Link from "next/link";
+import Head from "next/head";
 
 interface ILivesResponse {
   ok: boolean;
@@ -15,6 +16,9 @@ const Lives: NextPage = () => {
   const { data } = useSWR<ILivesResponse>("/api/lives?page=1");
   return (
     <Layout title="Stream" hasTabBar>
+      <Head>
+        <title>LIVE</title>
+      </Head>
       <div className="space-x-2 divide-y-[1px] py-8">
         {data?.lives.map((live) => (
           <Link legacyBehavior key={live.id} href={`/live/${live.id}`}>

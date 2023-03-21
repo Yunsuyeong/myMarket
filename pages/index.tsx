@@ -4,6 +4,9 @@ import Layout from "../components/layout";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
+import Image from "next/image";
+import img from "../public/local.jpeg";
+import Head from "next/head";
 
 export interface ItemWithCount extends Product {
   _count: {
@@ -23,6 +26,9 @@ const Home: NextPage = () => {
   const router = useRouter();
   return (
     <Layout title="Home" hasTabBar>
+      <Head>
+        <title>HOME</title>
+      </Head>
       <div className="flex flex-col space-y-5 px-2 py-4">
         {data?.items?.map((item) => (
           <div
@@ -31,7 +37,8 @@ const Home: NextPage = () => {
             className="flex cursor-pointer justify-between border-b pb-4"
           >
             <div className="flex space-x-2">
-              <div className="h-16 w-16 rounded-sm bg-white shadow-sm" />
+              <Image src={img} width={64} height={64} alt="" quality={100} />
+              {/* <div className="h-16 w-16 rounded-sm bg-white shadow-sm" /> */}
               <div className="flex flex-col pl-2">
                 <h3 className="text-md font-semibold">{item.name}</h3>
                 <span className="text-sm font-medium">Color</span>

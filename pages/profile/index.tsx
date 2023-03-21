@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { Review, User } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 interface ReviewWithUser extends Review {
   createdBy: User;
@@ -21,6 +22,9 @@ const Profile: NextPage = () => {
   const { data } = useSWR<IReviewsResponse>("/api/reviews");
   return (
     <Layout title="Profile" hasTabBar>
+      <Head>
+        <title>PROFILE</title>
+      </Head>
       <div className="px-2 py-8">
         <div className="flex items-center space-x-2">
           {user?.avatar ? (

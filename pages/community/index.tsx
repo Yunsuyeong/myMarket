@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Post, User } from "@prisma/client";
 import useCoords from "@libs/client/useCoords";
+import Head from "next/head";
 
 interface PostsWithUser extends Post {
   user: User;
@@ -29,6 +30,9 @@ const Community: NextPage = () => {
   console.log(latitude, longitude);
   return (
     <Layout title="Community" hasTabBar>
+      <Head>
+        <title>COMMUNITY</title>
+      </Head>
       <div className="cursor-pointer space-y-6 px-4 py-12">
         {data?.posts?.map((post) => (
           <div

@@ -1,9 +1,13 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import Layout from "../../components/layout";
 
 const Chats: NextPage = () => {
   return (
     <Layout title="Chat" hasTabBar>
+      <Head>
+        <title>CHAT</title>
+      </Head>
       <div className="divide-y-[1px] py-8">
         {[1, 2, 3, 4, 5, 6].map((_, i) => (
           <div

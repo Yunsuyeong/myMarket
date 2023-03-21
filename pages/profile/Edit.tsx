@@ -3,6 +3,7 @@ import Input from "@components/input";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -90,6 +91,9 @@ const EditProfile: NextPage = () => {
   }, [data, router]);
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PROFILE | EDIT</title>
+      </Head>
       <form onSubmit={handleSubmit(onValid)} className="space-y-2 px-2 py-8">
         <div className="flex items-center space-x-2">
           {preview ? (

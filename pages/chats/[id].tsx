@@ -1,10 +1,14 @@
 import Input from "@components/input";
 import { NextPage } from "next";
+import Head from "next/head";
 import Layout from "../../components/layout";
 
 const ChatsDetail: NextPage = () => {
   return (
     <Layout canGoBack>
+      <Head>
+        <title>CHAT | 1</title>
+      </Head>
       <div className="space-y-3 px-2 py-8">
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-full bg-slate-300" />

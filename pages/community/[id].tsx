@@ -10,6 +10,7 @@ import { cls } from "@libs/client/utils";
 import TextArea from "@components/textarea";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import Head from "next/head";
 
 interface AnswerwithUser extends Answer {
   user: User;
@@ -84,6 +85,9 @@ const CommunityDetail: NextPage = () => {
   }, [answerData, reset, boundMutate]);
   return (
     <Layout canGoBack>
+      <Head>
+        <title>COMMUNITY | {data?.post?.id}</title>
+      </Head>
       <div>
         <h4
           className="text-md mb-3 inline-flex items-center rounded-full bg-white

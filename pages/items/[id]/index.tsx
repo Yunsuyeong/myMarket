@@ -7,6 +7,7 @@ import { Product, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import useUser from "@libs/client/useUser";
+import Head from "next/head";
 
 interface ItemWithUser extends Product {
   user: User;
@@ -35,16 +36,19 @@ const ItemDetail: NextPage = () => {
   };
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PRODUCT | {data?.item?.name}</title>
+      </Head>
       <div className="px-4 py-8">
         <div className="mb-4">
           {data?.item?.image ? (
             <img
               src={`https://imagedelivery.net/aSbksvJjax-AUC7qVnaC4A/
-          ${data?.item?.image}/avatar`}
+          ${data?.item?.image}/image`}
               className="h-96"
             />
           ) : (
-            <div className="h-96 bg-white" />
+            <div className="h-96 w-96 bg-white" />
           )}
           <div className="flex items-center space-x-4 border-t border-b py-2">
             {data?.item?.user?.avatar ? (

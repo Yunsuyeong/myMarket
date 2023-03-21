@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Router, { useRouter } from "next/router";
 import { Product } from "@prisma/client";
 import TextArea from "@components/textarea";
+import Head from "next/head";
 
 interface IItemForm {
   image: FileList;
@@ -62,6 +63,9 @@ const Upload: NextPage = () => {
   }, [image]);
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PRODUCT | UPLOAD</title>
+      </Head>
       <div>
         <form className="px-4 py-8" onSubmit={handleSubmit(onValid)}>
           <div>

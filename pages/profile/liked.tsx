@@ -1,12 +1,16 @@
 import ItemList from "@components/itemList";
 import useUser from "@libs/client/useUser";
 import { NextPage } from "next";
+import Head from "next/head";
 import Layout from "../../components/layout";
 
 const Liked: NextPage = () => {
   const { user } = useUser();
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PROFILE | LIKED</title>
+      </Head>
       <div className="flex flex-col space-y-5 px-2 py-4">
         <ItemList kind="favorites" />
         <button

@@ -4,6 +4,7 @@ import TextArea from "@components/textarea";
 import useMutation from "@libs/client/useMutation";
 import { Live } from "@prisma/client";
 import { NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -36,6 +37,9 @@ const CreateLive: NextPage = () => {
   }, [data, router]);
   return (
     <Layout title="Create Live" canGoBack>
+      <Head>
+        <title>LIVE | CREATE</title>
+      </Head>
       <div>
         <form onSubmit={handleSubmit(onValid)} className="px-4 py-8">
           <Input

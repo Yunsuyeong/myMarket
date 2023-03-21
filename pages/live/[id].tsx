@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { useEffect } from "react";
+import Head from "next/head";
 
 interface ILiveMessage {
   id: number;
@@ -71,6 +72,9 @@ const LiveDetail: NextPage = () => {
   };
   return (
     <Layout canGoBack>
+      <Head>
+        <title>LIVE | {data?.live?.name}</title>
+      </Head>
       <div className="space-x-2 px-2 py-8">
         <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
         <div>

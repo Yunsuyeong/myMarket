@@ -2,11 +2,15 @@ import { NextPage } from "next";
 import Layout from "../../components/layout";
 import ItemList from "@components/itemList";
 import useUser from "@libs/client/useUser";
+import Head from "next/head";
 
 const Bought: NextPage = () => {
   const { user } = useUser();
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PROFILE | BOUGHT</title>
+      </Head>
       <div className="flex flex-col space-y-5 px-2 py-4">
         <ItemList kind="buys" />
         <button

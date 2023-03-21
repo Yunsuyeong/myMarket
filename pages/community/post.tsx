@@ -8,6 +8,7 @@ import { Post } from "@prisma/client";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useCoords from "@libs/client/useCoords";
+import Head from "next/head";
 
 interface IPostForm {
   question: string;
@@ -35,6 +36,9 @@ const CommunityPost: NextPage = () => {
   }, [data, router]);
   return (
     <Layout canGoBack>
+      <Head>
+        <title>COMMUNITY | POST</title>
+      </Head>
       <form onSubmit={handleSubmit(onValid)} className="px-2">
         <TextArea
           register={register("question", { required: true })}

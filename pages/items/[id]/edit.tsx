@@ -6,6 +6,7 @@ import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { Product, User } from "@prisma/client";
 import { NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -64,6 +65,9 @@ const EditItem: NextPage = () => {
   }, [image]);
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PRODUCT | {data?.item?.name} | EDIT</title>
+      </Head>
       <form onSubmit={handleSubmit(onValid)} className="space-y-2 px-2 py-8">
         <div className="flex flex-col items-center justify-center gap-4">
           {preview ? (

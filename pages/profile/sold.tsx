@@ -3,11 +3,15 @@ import Layout from "../../components/layout";
 import useSWR from "swr";
 import ItemList from "@components/itemList";
 import useUser from "@libs/client/useUser";
+import Head from "next/head";
 
 const Sold: NextPage = () => {
   const { user } = useUser();
   return (
     <Layout canGoBack>
+      <Head>
+        <title>PROFILE | SOLD</title>
+      </Head>
       <div className="flex flex-col space-y-5 px-2 py-4">
         <ItemList kind="sales" />
         <button
