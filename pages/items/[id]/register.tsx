@@ -19,6 +19,7 @@ interface IItemResponse {
   item: ItemWithUser;
   relatedItem: Product[];
   isLiked: boolean;
+  Registered: boolean;
 }
 
 interface IRegisterForm {
@@ -27,7 +28,7 @@ interface IRegisterForm {
 
 const Register: NextPage = () => {
   const router = useRouter();
-  const { data } = useSWR<IItemResponse>(
+  const { data, mutate } = useSWR<IItemResponse>(
     router.query.id && `/api/items/${router.query.id}`
   );
   const { register, handleSubmit } = useForm<IRegisterForm>();
@@ -36,7 +37,7 @@ const Register: NextPage = () => {
   );
   console.log(registerData);
   const onValid = (form: IRegisterForm) => {
-    console.log(form);
+    mutate((prev) => prev && { ...prev, Registered: true }, false);
     regist(form);
   };
   useEffect(() => {

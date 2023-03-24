@@ -32,6 +32,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             favorites: true,
           },
         },
+        registers: {
+          select: {
+            id: true,
+            contact: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                avatar: true,
+              },
+            },
+          },
+        },
       },
     });
     res.json({ ok: true, items });

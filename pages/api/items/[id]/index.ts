@@ -63,7 +63,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       })
     );
-    res.json({ ok: true, item, isLiked, relatedItem });
+    const Registered = Boolean(
+      await client.register.findFirst({
+        where: {
+          productId: item?.id,
+          userId: user?.id,
+        },
+        select: {
+          id: true,
+        },
+      })
+    );
+    res.json({ ok: true, item, isLiked, Registered, relatedItem });
   }
   if (req.method === "POST") {
     const {

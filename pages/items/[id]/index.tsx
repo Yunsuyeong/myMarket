@@ -29,6 +29,7 @@ interface IItemResponse {
   item: ItemWithContacts;
   relatedItem: Product[];
   isLiked: boolean;
+  Registered: boolean;
 }
 
 const ItemDetail: NextPage = () => {
@@ -89,7 +90,10 @@ const ItemDetail: NextPage = () => {
         </div>
         <div className="mt-8">
           <h1 className="text-2xl font-bold">
-            {data ? data?.item?.name : "Loading..."}
+            {data ? data?.item?.name : "Loading..."}{" "}
+            <span className="text-sm font-medium">
+              ({data?.Registered ? "Registered" : "Not Registered"})
+            </span>
           </h1>
           <p className="text-sm font-medium text-gray-300">
             ${data ? data?.item?.price : "Loading..."}

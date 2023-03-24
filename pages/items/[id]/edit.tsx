@@ -23,6 +23,7 @@ interface IItemResponse {
   item: ItemWithUser;
   relatedItem: Product[];
   isLiked: boolean;
+  Registered: boolean;
 }
 
 interface IEditItemForm {
