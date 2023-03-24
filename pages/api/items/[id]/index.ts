@@ -2,6 +2,7 @@ import client from "@libs/server/client";
 import withHandler, { IResponse } from "@libs/server/withHandler";
 import { NextApiRequest, NextApiResponse } from "next";
 import { withApiSession } from "../../../../libs/server/withSession";
+import { Post } from "@prisma/client";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
@@ -19,6 +20,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             id: true,
             name: true,
             avatar: true,
+          },
+        },
+        registers: {
+          select: {
+            id: true,
+            contact: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                avatar: true,
+              },
+            },
           },
         },
       },

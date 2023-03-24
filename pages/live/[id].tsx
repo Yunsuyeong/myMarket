@@ -40,6 +40,7 @@ const LiveDetail: NextPage = () => {
       refreshInterval: 1000,
     }
   );
+  console.log(data);
   const { handleSubmit, register, reset } = useForm<IMessageForm>();
   const [message, { data: messageData, loading }] = useMutation(
     `/api/lives/${router.query.id}/messages`

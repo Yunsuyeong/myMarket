@@ -3,20 +3,30 @@ import Layout from "../../../components/layout";
 import { useRouter } from "next/router";
 import useSWR, { useSWRConfig } from "swr";
 import Link from "next/link";
-import { Product, User } from "@prisma/client";
+import { Product, Register, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import useUser from "@libs/client/useUser";
 import Head from "next/head";
 import Image from "next/image";
 
-interface ItemWithUser extends Product {
+interface IItemContacts {
+  id: number;
+  contact: string;
+  user: {
+    id: number;
+    avatar: string;
+  };
+}
+
+interface ItemWithContacts extends Product {
   user: User;
+  registers: IItemContacts[];
 }
 
 interface IItemResponse {
   ok: boolean;
-  item: ItemWithUser;
+  item: ItemWithContacts;
   relatedItem: Product[];
   isLiked: boolean;
 }
@@ -24,7 +34,6 @@ interface IItemResponse {
 const ItemDetail: NextPage = () => {
   const { user } = useUser();
   const router = useRouter();
-  const { mutate } = useSWRConfig();
   const { data, mutate: boundMutate } = useSWR<IItemResponse>(
     router.query.id && `/api/items/${router.query.id}`
   );
@@ -103,6 +112,7 @@ const ItemDetail: NextPage = () => {
           </button>
           <div className="flex items-center justify-between space-x-2">
             <button
+              onClick={() => router.push(`/items/${router.query.id}/register`)}
               className="flex-1 rounded-md bg-green-300 py-2 font-semibold
             shadow-sm hover:bg-green-500 focus:ring-2 focus:ring-offset-2"
             >
@@ -158,6 +168,32 @@ const ItemDetail: NextPage = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div>
+          <h2 className="py-4 text-2xl font-semibold">Contacts</h2>
+          {data?.item?.registers.map((contact) =>
+            contact.user.id !== user?.id ? (
+              <div
+                key={contact.id}
+                className="flex items-center space-x-2 space-y-2"
+              >
+                <div className="h-8 w-8 rounded-full bg-slate-300" />
+                <div className="text-md w-1/2 rounded-md border p-2 font-semibold">
+                  <p>{contact.contact}</p>
+                </div>
+              </div>
+            ) : (
+              <div
+                key={contact.id}
+                className="flex flex-row-reverse items-center space-x-2 space-y-2 space-x-reverse"
+              >
+                <div className="h-8 w-8 rounded-full bg-slate-300" />
+                <div className="text-md w-1/2 rounded-md border p-2 font-semibold">
+                  <p>{contact.contact}</p>
+                </div>
+              </div>
+            )
+          )}
         </div>
       </div>
     </Layout>
