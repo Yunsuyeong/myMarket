@@ -20,7 +20,10 @@ const Input = ({
 }: IInput) => {
   return (
     <div>
-      <label className="block text-sm font-medium" htmlFor={name}>
+      <label
+        className="block text-center text-sm font-medium sm:text-left"
+        htmlFor={name}
+      >
         {label}
       </label>
       {kind === "email" && (

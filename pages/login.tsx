@@ -54,8 +54,10 @@ export default function Enter() {
   };
   return (
     <div className="mt-8 px-4">
-      <h1 className="text-center text-4xl font-bold">Enter to my market</h1>
-      <div className="mt-12">
+      <h1 className="text-center text-3xl font-bold sm:text-4xl">
+        Enter to my market
+      </h1>
+      <div className="mt-12 px-2 sm:absolute sm:top-[20vh] sm:left-0 sm:right-0 sm:w-2/3">
         {data?.ok ? (
           <form
             onSubmit={tokenHandleSubmit(tokenValid)}
@@ -76,7 +78,7 @@ export default function Enter() {
         ) : (
           <>
             <div className="flex flex-col items-center">
-              <h3 className=" text-lg font-medium">Enter using</h3>
+              <h3 className=" font-medium sm:text-lg">Enter using</h3>
               <div className="mt-4 grid w-full grid-cols-2 gap-12 border-b">
                 <button
                   className={cls(
@@ -145,18 +147,18 @@ export default function Enter() {
             </form>
           </>
         )}
-        <div className="mt-4">
+        <div className="mt-4 sm:absolute sm:top-[5vh] sm:right-[-25vw]">
           <div className="relative">
             <div className="absolute w-full border-t border-white" />
-            <div className="relative -top-3 text-center">
+            <div className="relative -top-3 text-center sm:-top-3">
               <span className="text-md bg-black px-1">Or enter with</span>
             </div>
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="mt-4 grid grid-cols-2 gap-4 sm:flex sm:flex-col">
             <button
               className="text-md flex cursor-pointer items-center justify-center
-            rounded-md border border-white px-2 py-2 font-bold 
-            text-white shadow-sm hover:bg-gray-700"
+            rounded-md border border-white px-2 py-2 font-bold text-white
+            shadow-sm hover:bg-gray-700 sm:w-[20vw]"
             >
               <svg
                 className="h-5 w-5"

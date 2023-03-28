@@ -20,7 +20,7 @@ const Layout = ({ title, canGoBack, hasTabBar, children }: ILayout) => {
       <div
         className={cls(
           !canGoBack ? "justify-center" : "",
-          "text-md fixed top-0 flex w-full max-w-2xl items-center border-b bg-white px-8 py-4 font-medium text-black"
+          "text-md fixed top-0 flex w-full items-center border-b bg-white px-8 py-4 font-medium text-black sm:left-0 sm:right-0"
         )}
       >
         {canGoBack && (
@@ -40,13 +40,13 @@ const Layout = ({ title, canGoBack, hasTabBar, children }: ILayout) => {
             />
           </svg>
         )}
-        {title && <span>{title}</span>}
+        {title && <span className="text-md sm:text-xl">{title}</span>}
       </div>
       <div className={cls("pt-16", hasTabBar ? "pb-24" : "")}>{children}</div>
       {hasTabBar && (
         <nav
-          className="text-md fixed bottom-0 flex w-full max-w-2xl items-center
-        justify-around border-t bg-white py-8 font-medium text-black"
+          className="text-md text-md fixed bottom-0 flex w-full items-center justify-around
+        border-t bg-white py-8 font-medium text-black sm:left-0 sm:right-0 sm:text-xl"
         >
           <Link legacyBehavior href="/">
             <a className="flex cursor-pointer flex-col items-center space-y-2">

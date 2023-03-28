@@ -30,12 +30,12 @@ const Home: NextPage = () => {
       <Head>
         <title>HOME</title>
       </Head>
-      <div className="flex flex-col space-y-5 px-2 py-4">
+      <div className="flex flex-col space-y-5 px-2 py-4 sm:absolute sm:left-0 sm:right-0 sm:grid sm:w-full sm:grid-cols-2 sm:gap-4">
         {data?.items?.map((item) => (
           <div
             key={item.id}
             onClick={() => router.push(`/items/${item.id}`)}
-            className="flex cursor-pointer justify-between border-b pb-4"
+            className="cursor-pointer justify-between border-b pb-2"
           >
             <div className="flex space-x-2">
               <Image src={img} width={64} height={64} alt="" quality={100} />
