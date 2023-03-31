@@ -68,7 +68,10 @@ const Upload: NextPage = () => {
         <title>PRODUCT | UPLOAD</title>
       </Head>
       <div>
-        <form className="px-4 py-8" onSubmit={handleSubmit(onValid)}>
+        <form
+          className="px-4 py-8 sm:absolute sm:top-[10vh] sm:left-0 sm:right-0 sm:w-2/3"
+          onSubmit={handleSubmit(onValid)}
+        >
           <div>
             {preview ? (
               <Image

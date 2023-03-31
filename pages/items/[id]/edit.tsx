@@ -78,15 +78,15 @@ const EditItem: NextPage = () => {
               height={144}
               quality={100}
               alt=""
-              className="h-36 w-36 rounded-md"
+              className="h-36 w-36 rounded-md sm:h-48 sm:w-48"
             />
           ) : (
-            <div className="h-36 w-36 rounded-md bg-slate-300" />
+            <div className="h-36 w-36 rounded-md bg-slate-300 sm:h-48 sm:w-48" />
           )}
           <label
             htmlFor="picture"
             className="cursor-pointer rounded-md border border-gray-500 py-2
-          px-2 text-sm font-medium shadow-sm hover:bg-gray-600 focus:ring-2 focus:ring-offset-2
+          px-2 text-sm font-medium shadow-sm hover:bg-gray-600 focus:ring-2 focus:ring-offset-2 sm:py-4 sm:px-4
           "
           >
             Change

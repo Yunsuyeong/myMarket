@@ -33,7 +33,7 @@ const Community: NextPage = () => {
       <Head>
         <title>COMMUNITY</title>
       </Head>
-      <div className="cursor-pointer space-y-6 px-4 py-12">
+      <div className="cursor-pointer space-y-6 px-4 py-12 sm:absolute sm:left-0 sm:right-0 sm:grid sm:w-full sm:grid-cols-2 sm:gap-4">
         {data?.posts?.map((post) => (
           <div
             onClick={() => router.push(`/community/${post.id}`)}

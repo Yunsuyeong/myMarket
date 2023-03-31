@@ -25,11 +25,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
     });
   }
   if (req.method === "GET") {
-    const {
+    /* const {
       query: { latitude, longitude },
     } = req;
     const Nlatitude = parseFloat(latitude!.toString());
-    const Nlongitude = parseFloat(longitude!.toString());
+    const Nlongitude = parseFloat(longitude!.toString()); */
     const posts = await client.post.findMany({
       include: {
         user: {
@@ -46,7 +46,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
           },
         },
       },
-      where: {
+      /* where: {
         latitude: {
           gte: Nlatitude - 0.01,
           lte: Nlatitude + 0.01,
@@ -55,7 +55,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
           gte: Nlongitude - 0.01,
           lte: Nlongitude + 0.01,
         },
-      },
+      }, */
     });
     res.json({ ok: true, posts });
   }

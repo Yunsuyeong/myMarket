@@ -76,35 +76,41 @@ const LiveDetail: NextPage = () => {
       <Head>
         <title>LIVE | {data?.live?.name}</title>
       </Head>
-      <div className="space-x-2 px-2 py-8">
-        <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm">
-          {data?.live?.cloudflareId ? (
-            <iframe
-              src={`https://iframe.videodelivery.net/${data?.live?.cloudflareId}`}
-              className="aspect-video w-full rounded-md shadow-sm"
-              height="720"
-              width="1280"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-ficture;"
-              allowFullScreen={true}
-            ></iframe>
-          ) : null}
-        </div>
-        <div>
-          <h3 className="mt-2 text-center text-2xl font-bold">
-            {data?.live?.name}
-          </h3>
-          <span className="mt-2 block text-xl">{data?.live?.price}</span>
-          <p className="mt-4 text-lg">{data?.live?.description}</p>
-          <div className="flex flex-col rounded-lg bg-yellow-300 p-4 text-black">
-            <span>Stream keys (Secret)</span>
-            <span>
-              <span>URL</span>:{" "}
-              {data?.live?.cloudflareUrl ? data.live.cloudflareUrl : "xxxxx"}
-            </span>
-            <span>
-              <span>Key</span>:{" "}
-              {data?.live.cloudflareKey ? data.live.cloudflareKey : "xxxxx"}
-            </span>
+      <div className="space-x-2 px-2 py-8 sm:absolute sm:left-0 sm:right-0 sm:w-full">
+        <div className="sm:grid sm:grid-cols-2 sm:gap-8">
+          <div>
+            <div className="flex aspect-video w-full flex-col rounded-md bg-slate-300 shadow-sm">
+              {data?.live?.cloudflareId ? (
+                <iframe
+                  src={`https://iframe.videodelivery.net/${data?.live?.cloudflareId}`}
+                  className="aspect-video w-full rounded-md shadow-sm"
+                  height="720"
+                  width="1280"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-ficture;"
+                  allowFullScreen={true}
+                ></iframe>
+              ) : null}
+            </div>
+            <div>
+              <h3 className="mt-2 text-center text-2xl font-bold">
+                {data?.live?.name}
+              </h3>
+            </div>
+          </div>
+          <div>
+            <span className="mt-2 block text-xl">{data?.live?.price}</span>
+            <p className="mt-4 text-lg">{data?.live?.description}</p>
+            <div className="flex flex-col rounded-lg bg-yellow-300 p-4 text-black">
+              <span>Stream keys (Secret)</span>
+              <span>
+                <span>URL</span>:{" "}
+                {data?.live?.cloudflareUrl ? data.live.cloudflareUrl : "xxxxx"}
+              </span>
+              <span>
+                <span>Key</span>:{" "}
+                {data?.live.cloudflareKey ? data.live.cloudflareKey : "xxxxx"}
+              </span>
+            </div>
           </div>
         </div>
         <div>
@@ -131,7 +137,7 @@ const LiveDetail: NextPage = () => {
           )}
           <form
             onSubmit={handleSubmit(onValid)}
-            className="fixed inset-x-0 bottom-0 mx-auto w-full max-w-md"
+            className="fixed inset-x-0 bottom-0 mx-auto w-full max-w-md sm:absolute sm:right-0 sm:-bottom-36 sm:w-2/3"
           >
             <div className="relative mx-auto flex w-full max-w-md items-center">
               <input

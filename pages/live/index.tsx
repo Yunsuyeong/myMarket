@@ -20,7 +20,7 @@ const Lives: NextPage = () => {
       <Head>
         <title>LIVE</title>
       </Head>
-      <div className="space-x-2 divide-y-[1px] py-8">
+      <div className="flex flex-col space-x-2 py-8 sm:absolute sm:left-0 sm:right-0 sm:grid sm:w-full sm:grid-cols-2 sm:gap-4">
         {data?.lives.map((live) => (
           <Link legacyBehavior key={live.id} href={`/live/${live.id}`}>
             <a className="block px-4 pt-4">

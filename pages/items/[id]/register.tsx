@@ -50,7 +50,10 @@ const Register: NextPage = () => {
       <Head>
         <title>{data?.item.name} | REGISTER</title>
       </Head>
-      <form onClick={handleSubmit(onValid)} className="px-2">
+      <form
+        onClick={handleSubmit(onValid)}
+        className="px-2 sm:absolute sm:top-1/3 sm:left-0 sm:right-0 sm:w-full"
+      >
         <TextArea
           register={register("contact", { required: true })}
           required

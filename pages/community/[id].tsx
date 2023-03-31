@@ -88,7 +88,7 @@ const CommunityDetail: NextPage = () => {
       <Head>
         <title>COMMUNITY | {data?.post?.id}</title>
       </Head>
-      <div>
+      <div className="px-4 sm:absolute sm:left-0 sm:right-0 sm:w-full">
         <h4
           className="text-md mb-3 inline-flex items-center rounded-full bg-white
           px-2 py-1 font-semibold text-black"

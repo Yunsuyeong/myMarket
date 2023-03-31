@@ -39,7 +39,10 @@ const CommunityPost: NextPage = () => {
       <Head>
         <title>COMMUNITY | POST</title>
       </Head>
-      <form onSubmit={handleSubmit(onValid)} className="px-2">
+      <form
+        onSubmit={handleSubmit(onValid)}
+        className="px-2 sm:absolute sm:top-[10vh] sm:left-0 sm:right-0 sm:w-2/3"
+      >
         <TextArea
           register={register("question", { required: true })}
           required

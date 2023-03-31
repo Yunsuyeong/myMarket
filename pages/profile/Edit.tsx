@@ -95,7 +95,10 @@ const EditProfile: NextPage = () => {
       <Head>
         <title>PROFILE | EDIT</title>
       </Head>
-      <form onSubmit={handleSubmit(onValid)} className="space-y-2 px-2 py-8">
+      <form
+        onSubmit={handleSubmit(onValid)}
+        className="space-y-2 px-2 py-8 sm:absolute sm:top-[10vh] sm:left-0 sm:right-0 sm:w-2/3"
+      >
         <div className="flex items-center space-x-2">
           {preview ? (
             <Image

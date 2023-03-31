@@ -17,7 +17,7 @@ interface IRecordResponse {
 const ItemList = ({ kind }: ItemListProps) => {
   const { data } = useSWR<IRecordResponse>(`/api/users/prof/${kind}`);
   return data ? (
-    <>
+    <div className="sm:absolute sm:left-0 sm:right-0 sm:grid sm:w-full sm:grid-cols-2 sm:gap-4">
       {data[kind]?.map((record) => (
         <div
           key={record.product.id}
@@ -74,7 +74,7 @@ const ItemList = ({ kind }: ItemListProps) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   ) : null;
 };
 

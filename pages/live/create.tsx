@@ -41,7 +41,10 @@ const CreateLive: NextPage = () => {
         <title>LIVE | CREATE</title>
       </Head>
       <div>
-        <form onSubmit={handleSubmit(onValid)} className="px-4 py-8">
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="px-4 py-8 sm:absolute sm:top-[10vh] sm:left-0 sm:right-0 sm:w-2/3"
+        >
           <Input
             register={register("name", { required: true })}
             required
